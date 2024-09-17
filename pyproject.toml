@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "nvidia_devcontainer"
+version = "0.0.1"
+description = ""
+authors = ["Reisson Saavedra <reisson.saavedra.miguel@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+pydantic = "^2.5.1"
+loguru = "^0.7.2"
+pandas = "^2.2.2"
+ruff = "^0.5.1"
+black = "^24.4.2"
+isort = "^5.13.2"
+torch = "^2.4.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^6.2.5"
+coverage = "^5.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.semantic_release]
+branch = "release"
+build_command = "poetry build"
+upload_to_repository = false
+version_toml = "pyproject.toml:tool.poetry.version"
+
+[tool.pytest.ini_options]
+log_cli = true
+
+[tool.black]
+exclude = ""
+line-length = 88
+
+[tool.isort]
+atomic = false
+filter_files = true
+force_single_line = false
+include_trailing_comma = true
+line_length = 88
+lines_after_imports = 2
+lines_between_types = 1
+multi_line_output = 3
+skip = ""
+skip_glob = "*/setup.py"
+use_parentheses = true
+virtual_env = ""
+
+[tool.ruff]
+ignore-init-module-imports = true
+
+[tool.ruff.lint]
+extend-select = ["I"]

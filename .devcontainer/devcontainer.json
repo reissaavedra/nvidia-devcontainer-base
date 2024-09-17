@@ -1,0 +1,81 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+	"name": "CUDA",
+	/* "image": "..", */
+	"build": {
+		"context": "..",
+		"dockerfile": "../Dockerfile",
+		"args": {
+			"build": "build-dev",
+			"oh_my_zsh": "true"
+		}
+	},
+	/* "remoteEnv": {
+		"PATH": "${containerEnv:PATH}:/usr/local/cuda/bin",
+		"LD_LIBRARY_PATH": "$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64",
+		"XLA_FLAGS": "--xla_gpu_cuda_data_dir=/usr/local/cuda"
+	}, */
+	/* "postCreateCommand": [
+		"poetry install --all-extras"
+		// "nvidia-smi"
+	], */
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+	"workspaceFolder": "/app",
+	"features": {
+		"ghcr.io/devcontainers/features/sshd:1": {}
+	},
+	"runArgs": [
+		// "--runtime nvidia",
+		"--gpus",
+		"all"
+	],
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+	],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff",
+				"streetsidesoftware.code-spell-checker",
+				/* "github.copilot",
+				"github.copilot-labs", */
+				"yzhang.markdown-all-in-one",
+				"eamodio.gitlens",
+				"wayou.vscode-todo-highlight",
+				"tamasfe.even-better-toml",
+				"ms-python.black-formatter"
+			],
+			"settings": {
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh",
+						"icon": "terminal-bash"
+					}
+				},
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"editor.formatOnSave": true,
+				"editor.tabSize": 4,
+				"editor.rulers": [
+					88
+				],
+				"python.testing.pytestEnabled": true,
+				"python.testing.pytestArgs": [
+					"-s"
+				],
+				"python.defaultInterpreterPath": "/usr/local/bin/python",
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff",
+					"editor.codeActionsOnSave": {
+						"source.fixAll": "always",
+						"source.organizeImports": "always"
+					}
+				},
+				"ruff.lint.args": [
+					"--config=./pyproject.toml"
+				]
+			}
+		}
+	}
+}
